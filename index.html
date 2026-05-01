@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS Tutorial — A Hands-On Course</title>
+<meta name="description" content="A computer science tutorial series.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fafaf7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --muted: #8a8a85;
+    --line: #e6e4dd;
+    --accent: #c2410c;
+    --paper: #ffffff;
+    --serif: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    font-weight: 400;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Top nav */
+  nav {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    background: rgba(250, 250, 247, 0.85);
+  }
+  nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .brand span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero */
+  header.hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .lede {
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    max-width: 580px;
+    line-height: 1.55;
+  }
+  .meta-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .meta-row > div { display: flex; flex-direction: column; gap: 4px; }
+  .meta-row .label {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+  }
+  .meta-row .value { color: var(--ink); }
+
+  /* Sections */
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    letter-spacing: -0.02em;
+  }
+
+  /* Curriculum */
+  .topics { display: flex; flex-direction: column; }
+  .topic {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    transition: padding 0.2s ease;
+  }
+  .topic:hover { padding-left: 12px; }
+  .topic:last-child { border-bottom: 1px solid var(--line); }
+  .topic-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+  .topic h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .topic p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    max-width: 600px;
+  }
+  .topic-tags {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    padding: 2px 0;
+  }
+  .tag::before { content: "// "; }
+
+  /* Resources */
+  .resources {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .resource {
+    background: var(--paper);
+    padding: 28px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .resource:hover { background: var(--bg); }
+  .resource .kind {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .resource h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .resource p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    flex: 1;
+  }
+  .resource .arrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .resource:hover .arrow { color: var(--accent); }
+
+  /* Instructor */
+  .instructor {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f3e9d8 0%, #e9d5b8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 3rem;
+    color: var(--accent);
+    border: 1px solid var(--line);
+  }
+  .bio h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .bio .role {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  .bio p { color: var(--ink-soft); margin-bottom: 14px; }
+  .bio .contact {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .bio .contact a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .bio .contact a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Footer */
+  footer {
+    padding: 48px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .wrap { padding: 0 22px; }
+    header.hero { padding: 64px 0 48px; }
+    section { padding: 56px 0; }
+    .topic { grid-template-columns: 1fr; gap: 8px; }
+    .instructor { grid-template-columns: 1fr; gap: 24px; }
+    .avatar { width: 100px; height: 100px; font-size: 2.2rem; }
+    .nav-links { gap: 18px; }
+    .nav-links a:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">cs<span>/</span>tutorial</div>
+    <div class="nav-links">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#resources">Resources</a>
+      <a href="#instructor">Instructor</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">A Hands-On Tutorial Series</div>
+    <h1>Computer Science, <em>built from</em> first principles.</h1>
+    <p class="lede">A practical, project-driven walk through the ideas that make computers work — from logic and memory up through programs that solve real problems.</p>
+
+    <div class="meta-row">
+      <div>
+        <span class="label">Format</span>
+        <span class="value">Self-paced + weekly sessions</span>
+      </div>
+      <div>
+        <span class="label">Level</span>
+        <span class="value">Beginner → Intermediate</span>
+      </div>
+      <div>
+        <span class="label">Duration</span>
+        <span class="value">8 weeks</span>
+      </div>
+      <div>
+        <span class="label">Cost</span>
+        <span class="value">Free</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="curriculum">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Curriculum</h2>
+    </div>
+
+    <div class="topics">
+      <div class="topic">
+        <div class="topic-num">01</div>
+        <div>
+          <h3>Foundations & how computers think</h3>
+          <p>Binary, logic gates, and the leap from electricity to abstraction. We build up just enough hardware intuition to make the rest of the course click.</p>
+          <div class="topic-tags">
+            <span class="tag">binary</span>
+            <span class="tag">logic</span>
+            <span class="tag">abstraction</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic">
+        <div class="topic-num">02</div>
+        <div>
+          <h3>Programming fundamentals</h3>
+          <p>Variables, control flow, functions, and the habits of writing code that other people (and future-you) can read.</p>
+          <div class="topic-tags">
+            <span class="tag">syntax</span>
+            <span class="tag">control-flow</span>
+            <span class="tag">style</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic">
+        <div class="topic-num">03</div>
+        <div>
+          <h3>Data structures</h3>
+          <p>Arrays, lists, maps, trees. When to reach for which, and what each one quietly costs you.</p>
+          <div class="topic-tags">
+            <span class="tag">arrays</span>
+            <span class="tag">trees</span>
+            <span class="tag">complexity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic">
+        <div class="topic-num">04</div>
+        <div>
+          <h3>Algorithms & problem solving</h3>
+          <p>Searching, sorting, recursion, and a working framework for breaking unfamiliar problems apart.</p>
+          <div class="topic-tags">
+            <span class="tag">recursion</span>
+            <span class="tag">sorting</span>
+            <span class="tag">big-O</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topic">
+        <div class="topic-num">05</div>
+        <div>
+          <h3>Building real things</h3>
+          <p>A capstone project: pick a problem you actually care about and ship something that solves it end-to-end.</p>
+          <div class="topic-tags">
+            <span class="tag">project</span>
+            <span class="tag">git</span>
+            <span class="tag">deploy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resources">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Resources & Downloads</h2>
+    </div>
+
+    <div class="resources">
+      <a href="#" class="resource">
+        <span class="kind">Syllabus</span>
+        <h3>Course syllabus</h3>
+        <p>Week-by-week breakdown, expected outcomes, and the full reading list.</p>
+        <span class="arrow">→ Download PDF</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Code</span>
+        <h3>Starter repository</h3>
+        <p>Boilerplate, exercise stubs, and the tooling you'll need set up out of the box.</p>
+        <span class="arrow">→ View on GitHub</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Slides</span>
+        <h3>Lecture slides</h3>
+        <p>Annotated decks from each session, updated as the course progresses.</p>
+        <span class="arrow">→ Browse slides</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Reading</span>
+        <h3>Recommended reading</h3>
+        <p>A short, opinionated list of books and articles worth your time.</p>
+        <span class="arrow">→ See list</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Practice</span>
+        <h3>Problem sets</h3>
+        <p>Weekly exercises with solutions released after each session.</p>
+        <span class="arrow">→ Download set</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Community</span>
+        <h3>Discussion forum</h3>
+        <p>Where students ask questions, share progress, and help each other out.</p>
+        <span class="arrow">→ Join forum</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="instructor">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Instructor</h2>
+    </div>
+
+    <div class="instructor">
+      <div class="avatar">A</div>
+      <div class="bio">
+        <h3>Your Name</h3>
+        <div class="role">Lecturer · Course Lead</div>
+        <p>A short paragraph about who you are, what you do, and why you're running this tutorial. Mention the kinds of students you most enjoy teaching and what a typical week looks like.</p>
+        <p>Add a second paragraph if useful — past projects, research interests, or what students often say after taking your course.</p>
+        <div class="contact">
+          <a href="mailto:you@example.com">you@example.com</a>
+          <a href="#">github.com/yourhandle</a>
+          <a href="#">@yourhandle</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2026 — Built for the CS Tutorial · Hosted on GitHub Pages
+  </div>
+</footer>
+
+</body>
+</html>
