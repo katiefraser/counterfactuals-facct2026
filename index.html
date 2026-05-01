@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CS Tutorial — A Hands-On Course</title>
-<meta name="description" content="A computer science tutorial series.">
+<title>Counterfactual Fairness Analysis in Language-Vision Models — Tutorial</title>
+<meta name="description" content="A translation/dialogue tutorial on counterfactual fairness analysis in language-vision models.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     --line: #e6e4dd;
     --accent: #c2410c;
     --paper: #ffffff;
-    --serif: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
@@ -28,7 +28,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 400;
     background: var(--bg);
     color: var(--ink);
@@ -45,7 +45,6 @@
   /* Top nav */
   nav {
     border-bottom: 1px solid var(--line);
-    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -92,12 +91,13 @@
     margin-bottom: 24px;
   }
   h1 {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
-    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-    line-height: 1.05;
+    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    line-height: 1.1;
     letter-spacing: -0.03em;
     margin-bottom: 28px;
+    max-width: 850px;
   }
   h1 em {
     font-style: normal;
@@ -105,9 +105,9 @@
     font-weight: 400;
   }
   .lede {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--ink-soft);
-    max-width: 580px;
+    max-width: 680px;
     line-height: 1.55;
   }
   .meta-row {
@@ -145,60 +145,37 @@
     letter-spacing: 0.08em;
   }
   h2 {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
     font-size: clamp(1.7rem, 3vw, 2.2rem);
     letter-spacing: -0.02em;
   }
 
-  /* Curriculum */
-  .topics { display: flex; flex-direction: column; }
-  .topic {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 32px;
-    padding: 28px 0;
-    border-top: 1px solid var(--line);
-    transition: padding 0.2s ease;
-  }
-  .topic:hover { padding-left: 12px; }
-  .topic:last-child { border-bottom: 1px solid var(--line); }
-  .topic-num {
+  /* Slides section */
+  .slides-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 28px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
     font-family: var(--mono);
-    font-size: 13px;
+    font-size: 14px;
+    transition: background 0.15s ease;
+  }
+  .slides-cta:hover { background: var(--accent); }
+  .slides-cta .arrow { font-size: 16px; }
+  .slides-note {
+    margin-top: 16px;
+    font-size: 0.95rem;
     color: var(--muted);
-    padding-top: 4px;
   }
-  .topic h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 1.25rem;
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
-  .topic p {
-    color: var(--ink-soft);
-    font-size: 1rem;
-    max-width: 600px;
-  }
-  .topic-tags {
-    display: flex;
-    gap: 12px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
-  .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    padding: 2px 0;
-  }
-  .tag::before { content: "// "; }
 
   /* Resources */
   .resources {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1px;
     background: var(--line);
     border: 1px solid var(--line);
@@ -222,9 +199,9 @@
     color: var(--accent);
   }
   .resource h3 {
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     letter-spacing: -0.01em;
   }
   .resource p {
@@ -240,58 +217,64 @@
   }
   .resource:hover .arrow { color: var(--accent); }
 
-  /* Instructor */
-  .instructor {
+  /* Organizers grid */
+  .organizers {
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 40px;
-    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px 32px;
+  }
+  .organizer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
   .avatar {
-    width: 140px;
-    height: 140px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f3e9d8 0%, #e9d5b8 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
-    font-size: 3rem;
+    font-size: 1.4rem;
     color: var(--accent);
     border: 1px solid var(--line);
   }
-  .bio h3 {
-    font-family: var(--serif);
+  .organizer h3 {
+    font-family: var(--sans);
     font-weight: 500;
-    font-size: 1.4rem;
-    margin-bottom: 4px;
+    font-size: 1.1rem;
     letter-spacing: -0.01em;
+    margin-top: 4px;
   }
-  .bio .role {
+  .organizer .affil {
     font-family: var(--mono);
     font-size: 12px;
     color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 18px;
+    margin-bottom: 4px;
   }
-  .bio p { color: var(--ink-soft); margin-bottom: 14px; }
-  .bio .contact {
+  .organizer p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .organizer .links {
     display: flex;
-    gap: 24px;
-    margin-top: 20px;
+    gap: 16px;
+    margin-top: 6px;
     font-family: var(--mono);
-    font-size: 13px;
+    font-size: 12px;
   }
-  .bio .contact a {
+  .organizer .links a {
     color: var(--ink);
     text-decoration: none;
     border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
+    padding-bottom: 1px;
     transition: border-color 0.15s ease, color 0.15s ease;
   }
-  .bio .contact a:hover { color: var(--accent); border-color: var(--accent); }
+  .organizer .links a:hover { color: var(--accent); border-color: var(--accent); }
 
   /* Footer */
   footer {
@@ -307,11 +290,8 @@
     .wrap { padding: 0 22px; }
     header.hero { padding: 64px 0 48px; }
     section { padding: 56px 0; }
-    .topic { grid-template-columns: 1fr; gap: 8px; }
-    .instructor { grid-template-columns: 1fr; gap: 24px; }
-    .avatar { width: 100px; height: 100px; font-size: 2.2rem; }
     .nav-links { gap: 18px; }
-    .nav-links a:nth-child(3) { display: none; }
+    .organizers { gap: 32px; }
   }
 </style>
 </head>
@@ -319,115 +299,50 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand">cs<span>/</span>tutorial</div>
+    <div class="brand">cf<span>/</span>fairness</div>
     <div class="nav-links">
-      <a href="#curriculum">Curriculum</a>
+      <a href="#slides">Slides</a>
       <a href="#resources">Resources</a>
-      <a href="#instructor">Instructor</a>
+      <a href="#organizers">Organizers</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">A Hands-On Tutorial Series</div>
-    <h1>Computer Science, <em>built from</em> first principles.</h1>
-    <p class="lede">A practical, project-driven walk through the ideas that make computers work — from logic and memory up through programs that solve real problems.</p>
+    <div class="eyebrow">Translation / Dialogue Tutorial</div>
+    <h1><em>Counterfactual fairness</em> analysis in language-vision models.</h1>
+    <p class="lede">A single-session tutorial exploring how counterfactual reasoning can surface and quantify fairness issues in modern language-vision systems.</p>
 
     <div class="meta-row">
       <div>
         <span class="label">Format</span>
-        <span class="value">Self-paced + weekly sessions</span>
+        <span class="value">Single session</span>
       </div>
       <div>
-        <span class="label">Level</span>
-        <span class="value">Beginner → Intermediate</span>
+        <span class="label">Date</span>
+        <span class="value">TBA</span>
       </div>
       <div>
-        <span class="label">Duration</span>
-        <span class="value">8 weeks</span>
-      </div>
-      <div>
-        <span class="label">Cost</span>
-        <span class="value">Free</span>
+        <span class="label">Location</span>
+        <span class="value">TBA</span>
       </div>
     </div>
   </div>
 </header>
 
-<section id="curriculum">
+<section id="slides">
   <div class="wrap">
     <div class="section-head">
       <span class="section-num">01</span>
-      <h2>Curriculum</h2>
+      <h2>Slides</h2>
     </div>
 
-    <div class="topics">
-      <div class="topic">
-        <div class="topic-num">01</div>
-        <div>
-          <h3>Foundations & how computers think</h3>
-          <p>Binary, logic gates, and the leap from electricity to abstraction. We build up just enough hardware intuition to make the rest of the course click.</p>
-          <div class="topic-tags">
-            <span class="tag">binary</span>
-            <span class="tag">logic</span>
-            <span class="tag">abstraction</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="topic">
-        <div class="topic-num">02</div>
-        <div>
-          <h3>Programming fundamentals</h3>
-          <p>Variables, control flow, functions, and the habits of writing code that other people (and future-you) can read.</p>
-          <div class="topic-tags">
-            <span class="tag">syntax</span>
-            <span class="tag">control-flow</span>
-            <span class="tag">style</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="topic">
-        <div class="topic-num">03</div>
-        <div>
-          <h3>Data structures</h3>
-          <p>Arrays, lists, maps, trees. When to reach for which, and what each one quietly costs you.</p>
-          <div class="topic-tags">
-            <span class="tag">arrays</span>
-            <span class="tag">trees</span>
-            <span class="tag">complexity</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="topic">
-        <div class="topic-num">04</div>
-        <div>
-          <h3>Algorithms & problem solving</h3>
-          <p>Searching, sorting, recursion, and a working framework for breaking unfamiliar problems apart.</p>
-          <div class="topic-tags">
-            <span class="tag">recursion</span>
-            <span class="tag">sorting</span>
-            <span class="tag">big-O</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="topic">
-        <div class="topic-num">05</div>
-        <div>
-          <h3>Building real things</h3>
-          <p>A capstone project: pick a problem you actually care about and ship something that solves it end-to-end.</p>
-          <div class="topic-tags">
-            <span class="tag">project</span>
-            <span class="tag">git</span>
-            <span class="tag">deploy</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <a href="#" class="slides-cta">
+      Download tutorial slides
+      <span class="arrow">→</span>
+    </a>
+    <p class="slides-note">Slides will be posted here after the session.</p>
   </div>
 </section>
 
@@ -435,73 +350,115 @@
   <div class="wrap">
     <div class="section-head">
       <span class="section-num">02</span>
-      <h2>Resources & Downloads</h2>
+      <h2>Resources</h2>
     </div>
 
     <div class="resources">
       <a href="#" class="resource">
-        <span class="kind">Syllabus</span>
-        <h3>Course syllabus</h3>
-        <p>Week-by-week breakdown, expected outcomes, and the full reading list.</p>
-        <span class="arrow">→ Download PDF</span>
+        <span class="kind">Paper</span>
+        <h3>Foundational reference</h3>
+        <p>The core paper introducing the counterfactual fairness framework discussed in the tutorial.</p>
+        <span class="arrow">→ Read paper</span>
+      </a>
+
+      <a href="#" class="resource">
+        <span class="kind">Paper</span>
+        <h3>Language-vision fairness survey</h3>
+        <p>Recent survey covering bias and fairness evaluation in vision-language models.</p>
+        <span class="arrow">→ Read paper</span>
       </a>
 
       <a href="#" class="resource">
         <span class="kind">Code</span>
-        <h3>Starter repository</h3>
-        <p>Boilerplate, exercise stubs, and the tooling you'll need set up out of the box.</p>
+        <h3>Tutorial notebook</h3>
+        <p>A runnable notebook with the analyses demonstrated during the session.</p>
         <span class="arrow">→ View on GitHub</span>
       </a>
 
       <a href="#" class="resource">
-        <span class="kind">Slides</span>
-        <h3>Lecture slides</h3>
-        <p>Annotated decks from each session, updated as the course progresses.</p>
-        <span class="arrow">→ Browse slides</span>
+        <span class="kind">Dataset</span>
+        <h3>Benchmark dataset</h3>
+        <p>The benchmark used in the tutorial's worked examples.</p>
+        <span class="arrow">→ Download</span>
       </a>
 
       <a href="#" class="resource">
         <span class="kind">Reading</span>
-        <h3>Recommended reading</h3>
-        <p>A short, opinionated list of books and articles worth your time.</p>
+        <h3>Further reading</h3>
+        <p>An annotated list of related papers on causal and counterfactual fairness.</p>
         <span class="arrow">→ See list</span>
       </a>
 
       <a href="#" class="resource">
-        <span class="kind">Practice</span>
-        <h3>Problem sets</h3>
-        <p>Weekly exercises with solutions released after each session.</p>
-        <span class="arrow">→ Download set</span>
-      </a>
-
-      <a href="#" class="resource">
-        <span class="kind">Community</span>
-        <h3>Discussion forum</h3>
-        <p>Where students ask questions, share progress, and help each other out.</p>
-        <span class="arrow">→ Join forum</span>
+        <span class="kind">Video</span>
+        <h3>Recording</h3>
+        <p>Session recording will be linked here once available.</p>
+        <span class="arrow">→ Watch</span>
       </a>
     </div>
   </div>
 </section>
 
-<section id="instructor">
+<section id="organizers">
   <div class="wrap">
     <div class="section-head">
       <span class="section-num">03</span>
-      <h2>Instructor</h2>
+      <h2>Organizers</h2>
     </div>
 
-    <div class="instructor">
-      <div class="avatar">A</div>
-      <div class="bio">
-        <h3>Your Name</h3>
-        <div class="role">Lecturer · Course Lead</div>
-        <p>A short paragraph about who you are, what you do, and why you're running this tutorial. Mention the kinds of students you most enjoy teaching and what a typical week looks like.</p>
-        <p>Add a second paragraph if useful — past projects, research interests, or what students often say after taking your course.</p>
-        <div class="contact">
-          <a href="mailto:you@example.com">you@example.com</a>
-          <a href="#">github.com/yourhandle</a>
-          <a href="#">@yourhandle</a>
+    <div class="organizers">
+      <div class="organizer">
+        <div class="avatar">A</div>
+        <h3>Organizer One</h3>
+        <div class="affil">Affiliation</div>
+        <p>One- or two-sentence bio describing research focus and relevant background.</p>
+        <div class="links">
+          <a href="mailto:#">email</a>
+          <a href="#">website</a>
+        </div>
+      </div>
+
+      <div class="organizer">
+        <div class="avatar">B</div>
+        <h3>Organizer Two</h3>
+        <div class="affil">Affiliation</div>
+        <p>One- or two-sentence bio describing research focus and relevant background.</p>
+        <div class="links">
+          <a href="mailto:#">email</a>
+          <a href="#">website</a>
+        </div>
+      </div>
+
+      <div class="organizer">
+        <div class="avatar">C</div>
+        <h3>Organizer Three</h3>
+        <div class="affil">Affiliation</div>
+        <p>One- or two-sentence bio describing research focus and relevant background.</p>
+        <div class="links">
+          <a href="mailto:#">email</a>
+          <a href="#">website</a>
+        </div>
+      </div>
+
+      <div class="organizer">
+        <div class="avatar">D</div>
+        <h3>Organizer Four</h3>
+        <div class="affil">Affiliation</div>
+        <p>One- or two-sentence bio describing research focus and relevant background.</p>
+        <div class="links">
+          <a href="mailto:#">email</a>
+          <a href="#">website</a>
+        </div>
+      </div>
+
+      <div class="organizer">
+        <div class="avatar">E</div>
+        <h3>Organizer Five</h3>
+        <div class="affil">Affiliation</div>
+        <p>One- or two-sentence bio describing research focus and relevant background.</p>
+        <div class="links">
+          <a href="mailto:#">email</a>
+          <a href="#">website</a>
         </div>
       </div>
     </div>
@@ -510,7 +467,7 @@
 
 <footer>
   <div class="wrap">
-    © 2026 — Built for the CS Tutorial · Hosted on GitHub Pages
+    © 2026 — Counterfactual Fairness Tutorial · Hosted on GitHub Pages
   </div>
 </footer>
 
