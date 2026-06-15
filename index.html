@@ -22,11 +22,11 @@
     --sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
   }
-
+ 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: var(--sans);
     font-weight: 400;
@@ -35,13 +35,13 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-
+ 
   .wrap {
     max-width: 920px;
     margin: 0 auto;
     padding: 0 32px;
   }
-
+ 
   /* Top nav */
   nav {
     border-bottom: 1px solid var(--line);
@@ -76,7 +76,7 @@
     transition: color 0.15s ease;
   }
   .nav-links a:hover { color: var(--accent); }
-
+ 
   /* Hero */
   header.hero {
     padding: 96px 0 72px;
@@ -126,7 +126,7 @@
     font-size: 11px;
   }
   .meta-row .value { color: var(--ink); }
-
+ 
   /* Sections */
   section {
     padding: 80px 0;
@@ -150,7 +150,7 @@
     font-size: clamp(1.7rem, 3vw, 2.2rem);
     letter-spacing: -0.02em;
   }
-
+ 
   /* Slides section */
   .slides-cta {
     display: inline-flex;
@@ -171,7 +171,7 @@
     font-size: 0.95rem;
     color: var(--muted);
   }
-
+ 
   /* Resources */
   .resources {
     display: grid;
@@ -216,7 +216,7 @@
     margin-top: 6px;
   }
   .resource:hover .arrow { color: var(--accent); }
-
+ 
   /* Organizers grid */
   .organizers {
     display: grid;
@@ -231,6 +231,10 @@
   .avatar {
     width: 72px;
     height: 72px;
+    min-width: 72px;
+    min-height: 72px;
+    flex-shrink: 0;
+    align-self: flex-start;
     border-radius: 50%;
     background: linear-gradient(135deg, #f3e9d8 0%, #e9d5b8 100%);
     display: flex;
@@ -241,6 +245,14 @@
     font-size: 1.4rem;
     color: var(--accent);
     border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .organizer .avatar img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
   }
   .organizer h3 {
     font-family: var(--sans);
@@ -275,7 +287,7 @@
     transition: border-color 0.15s ease, color 0.15s ease;
   }
   .organizer .links a:hover { color: var(--accent); border-color: var(--accent); }
-
+ 
   /* Footer */
   footer {
     padding: 48px 0;
@@ -284,7 +296,6 @@
     font-size: 12px;
     color: var(--muted);
   }
-
   /* Responsive */
   @media (max-width: 640px) {
     .wrap { padding: 0 22px; }
