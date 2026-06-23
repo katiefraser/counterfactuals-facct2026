@@ -592,11 +592,51 @@ diversity & inclusion awards.</p>
   </div>
 </section>
 
+
+<section id="citation">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Citation</h2>
+    </div>
+ 
+    <p class="citation-intro">If you find this tutorial useful, please cite it as:</p>
+ 
+    <div class="bibtex-wrap">
+      <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
+<pre class="bibtex" id="bibtex">@inproceedings{fraser2026counterfactual,
+  author    = {Fraser, Kathleen and Howard, Phillip and Zhao, Jieyu and McKay, Margaret and Scheuerman, Morgan},
+  title     = {Translation/Dialogue Tutorial: Counterfactual Fairness Analysis in Language-Vision Models},
+  booktitle = {Proceedings of the 2026 ACM Conference on Fairness, Accountability, and Transparency (FAccT)},
+  year      = {2026},
+  month     = {June},
+  address   = {Montreal, Canada},
+  publisher = {Association for Computing Machinery},
+}</pre>
+    </div>
+  </div>
+</section>
+ 
 <footer>
   <div class="wrap">
     © 2026 — Counterfactual Fairness Tutorial · Hosted on GitHub Pages
   </div>
 </footer>
-
+ 
+<script>
+  function copyBibtex(btn) {
+    const text = document.getElementById('bibtex').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+ 
 </body>
 </html>
